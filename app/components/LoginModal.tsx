@@ -11,7 +11,10 @@ export default function LoginModal(props: LoginModalProps) {
         <div className="bg-[#15b7a5] h-3/6 w-1/6 rounded-l-lg text-white flex flex-col justify-around items-center">
           <div className="text-center">
             <h1 className="text-xl">Seja bem-vindo(a)!</h1>
-            {(props.actionText === "login" || props.actionText === "cadastro") && (<p>Faça seu {props.actionText} para continuar</p>)}
+            {(props.actionText === "login" ||
+              props.actionText === "cadastro") && (
+              <p>Faça seu {props.actionText} para continuar</p>
+            )}
           </div>
           <Image
             className=""
@@ -33,21 +36,40 @@ export default function LoginModal(props: LoginModalProps) {
             {props.actionText} Perfil Sicoob
           </h1>
           <form className="flex flex-col gap-2 w-2/5">
+            {props.actionText === "cadastro" && (
+              <input
+                className="border rounded border-[#003741] p-[4px]"
+                type="text"
+                placeholder="Insira seu nome"
+                required
+              />
+            )}
+            {props.actionText === "cadastro" && (
+              <input
+                className="border rounded border-[#003741] p-[4px]"
+                type="text"
+                placeholder="Crie um nome de usuário"
+                required
+              />
+            )}
             <input
               className="border rounded border-[#003741] p-[4px]"
               type="email"
-              placeholder="Email"
+              placeholder="Insira seu melhor email"
+              required
             />
             <input
               className="border rounded border-[#003741] p-[4px]"
               type="password"
-              placeholder="Senha"
+              placeholder="Crie uma senha forte"
+              required
             />
             {props.actionText === "cadastro" && (
               <input
                 className="border rounded border-[#003741] p-[4px]"
                 type="password"
                 placeholder="Confirme sua senha"
+                required
               />
             )}
             <button
@@ -60,12 +82,14 @@ export default function LoginModal(props: LoginModalProps) {
           <div>
             {props.actionText === "login" && (
               <p>
-                Esqueceu sua senha? <a href="/login/redefinir">Clique para redefinir</a>
+                Esqueceu sua senha?{" "}
+                <a href="/login/redefinir">Clique para redefinir</a>
               </p>
             )}
             {props.actionText === "login" && (
               <p>
-                Primeira vez por aqui? <a href="/login/cadastro">Crie sua conta!</a>
+                Primeira vez por aqui?{" "}
+                <a href="/login/cadastro">Crie sua conta!</a>
               </p>
             )}
             {props.actionText === "cadastro" && (
