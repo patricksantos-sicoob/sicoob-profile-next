@@ -11,7 +11,7 @@ export default function LoginModal(props: LoginModalProps) {
         <div className="bg-[#15b7a5] h-3/6 w-1/6 rounded-l-lg text-white flex flex-col justify-around items-center">
           <div className="text-center">
             <h1 className="text-xl">Seja bem-vindo(a)!</h1>
-            <p>Faça seu {props.actionText} para continuar</p>
+            {(props.actionText === "login" || props.actionText === "cadastro") && (<p>Faça seu {props.actionText} para continuar</p>)}
           </div>
           <Image
             className=""
@@ -60,7 +60,7 @@ export default function LoginModal(props: LoginModalProps) {
           <div>
             {props.actionText === "login" && (
               <p>
-                Esqueceu sua senha? <a href="">Clique para redefinir</a>
+                Esqueceu sua senha? <a href="/login/redefinir">Clique para redefinir</a>
               </p>
             )}
             {props.actionText === "login" && (
