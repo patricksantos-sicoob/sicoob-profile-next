@@ -12,9 +12,6 @@ export default function Cadastro() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-//  if (password !== confirmPassword) {
-//  }
-
   const handleSubmit = async () => {
 
     const userData = { name, username, email, password };
@@ -48,6 +45,7 @@ export default function Cadastro() {
         <Input type="password" placeholder="Repita a senha" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
 
         <ButtonLogin buttonText="Fazer Cadastro" />
+        <p></p>
       </form>
       <div>
         <p>
