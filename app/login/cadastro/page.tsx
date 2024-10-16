@@ -1,9 +1,10 @@
 "use client"
 
-import Input from "@/app/components/Input";
-import LoginModal from "../../components/LoginModal";
-import ButtonLogin from "@/app/components/Button";
+import Input from "@/components/Input";
+import LoginModal from "../../../components/LoginModal";
+import ButtonLogin from "@/components/Button";
 import { useState } from "react";
+import { useRouter } from 'next/navigation';
 
 export default function Cadastro() {
   const [name, setName] = useState("");
@@ -11,8 +12,10 @@ export default function Cadastro() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const router = useRouter();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
     const userData = { name, username, email, password };
 
@@ -32,6 +35,8 @@ export default function Cadastro() {
     } catch (error) {
       console.error(error);
     }
+
+    router.push('/login');
   };
 
   return (

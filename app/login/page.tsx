@@ -1,16 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import router from 'next/router';
-import ButtonLogin from "../components/Button";
-import Input from "../components/Input";
-import LoginModal from "../components/LoginModal";
+import { useRouter } from 'next/navigation';
+import ButtonLogin from "../../components/Button";
+import Input from "../../components/Input";
+import LoginModal from "../../components/LoginModal";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
-  const handleLogin = async () => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     try {
       const response = await fetch("http://localhost:2345/auth/login", {
         method: "POST",
@@ -28,7 +31,7 @@ export default function LoginPage() {
       const data = await response.json();
       console.log("Login realizado com sucesso:", data);
 
-      localStorage.setItem('token', data.token);
+      localStorage.setItem('token', data.access_token);
 
       router.push('/home');
     } catch (error) {

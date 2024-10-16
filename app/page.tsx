@@ -7,22 +7,23 @@ import { GoTasklist } from "react-icons/go";
 import { SiMicrosoftazure } from "react-icons/si";
 import { IoIosGitNetwork } from "react-icons/io";
 import { TbBrandTypescript } from "react-icons/tb";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <div className="flex h-screen flex-col">
       <header className="bg-[#00353e] text-white h-20 flex justify-around items-center">
-        <p className="font-semibold">Perfil Sicoob</p>
+        <h1 className="font-semibold">Perfil Sicoob</h1>
         <div className="flex flex-row gap-3 items-center justify-center">
-          <a className="text-[#7eb61d]" href="/login">
+          <Link className="text-[#7eb61d]" href="/login">
             Fazer login
-          </a>
-          <a
+          </Link>
+          <Link
             className="bg-[#7eb61d] text-white p-2 rounded-md font-semibold"
             href="/login/cadastro"
           >
             Criar conta
-          </a>
+          </Link>
         </div>
       </header>
       <main className="bg-white h-full flex flex-col justify-center items-center gap-2">

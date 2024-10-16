@@ -2,7 +2,7 @@ import LogoSicoob from "./icons/LogoSicoob";
 import Escolha from "./icons/Escolha";
 import React, { ReactNode } from "react";
 
-export const LoginModal: React.FC<{ children: ReactNode }> = (
+const LoginModal: React.FC<{ children: ReactNode }> = (
   { children }
 ) => {
   return (
