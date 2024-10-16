@@ -11,12 +11,12 @@ export default function HomeLayout({
       <div className="bg-[#00353e] text-white h-20 flex justify-around items-center">
         <p className="font-semibold">Perfil Sicoob</p>
         <div className="flex flex-row gap-3 items-center justify-center">
-          <Link className="text-white" href="/login">
+          <Link className="text-white" href="/home">
             Ver perfis
           </Link>
           <Link
             className="text-[#7eb61d]  p-2 rounded-md font-semibold"
-            href="/login/cadastro"
+            href="/user"
           >
             Minha conta
           </Link>
