@@ -19,6 +19,12 @@ const nextConfig = {
         hostname: 'media.licdn.com',
         port: '',
         pathname: '/dms/image/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'img.freepik.com',
+        port: '',
+        pathname: '/premium-vector/**',
       }
     ],
   }

@@ -1,9 +1,9 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
-
-const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+import { useEffect } from "react";
+import { ComponentProps } from "react";
+const ProtectedRoute = ({ children  }: ComponentProps<"div">) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
     }
   }, [router]);
 
-  return <>{children}</>;
+  return <div>{children}</div>;
 }
 
 export default ProtectedRoute;

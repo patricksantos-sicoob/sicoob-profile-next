@@ -5,6 +5,7 @@ interface InputButtonProps {
   placeholder: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
 }
 
 export default function Input(props: InputButtonProps) {
@@ -15,7 +16,7 @@ export default function Input(props: InputButtonProps) {
       placeholder={props.placeholder}
       value={props.value}
       onChange={props.onChange}
-      required
+      {...(props.required && { required: true })}
     />
   );
 }
