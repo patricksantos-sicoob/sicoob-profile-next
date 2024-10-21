@@ -1,14 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import ButtonLogin from "../../components/Button";
 import Input from "../../components/Input";
 import LoginModal from "../../components/LoginModal";
+import { toast, Toaster } from "react-hot-toast";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [response, setResponse] = useState<Response | null>(null);
+  const [error, setError] = useState<Error | null>(null);
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -23,6 +26,8 @@ export default function LoginPage() {
         body: JSON.stringify({ username, password }),
       });
 
+      setResponse(response);
+
       if (!response.ok) {
         console.error("Login inválido");
         throw new Error("Login inválido");
@@ -31,11 +36,24 @@ export default function LoginPage() {
       const data = await response.json();
       console.log("Login realizado com sucesso:", data);
 
-      localStorage.setItem('token', data.access_token);
+      localStorage.setItem("token", data.access_token);
 
-      router.push('/home');
+      router.push("/home");
     } catch (error) {
       console.error(error);
+      setError(error.message);
+    }
+  };
+
+  const notifyServerError = () => {
+    if (error instanceof Error) {
+      toast.error("Houve um erro no servidor");
+    }
+    if (response && !response.ok) {
+      toast.error("Login ou senha incorretos");
+    }
+    if (response) {
+      toast.success("Login realizado com sucesso");
     }
   };
 
@@ -55,7 +73,8 @@ export default function LoginPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <ButtonLogin buttonText="Fazer Login" />
+        <ButtonLogin buttonText="Fazer Login" onClick={notifyServerError} />
+        <Toaster />
       </form>
       <div>
         <p>

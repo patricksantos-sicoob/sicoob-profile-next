@@ -5,6 +5,7 @@ import LoginModal from "../../../components/LoginModal";
 import ButtonLogin from "@/components/Button";
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
+import Notification from "@/components/Notification";
 
 export default function Cadastro() {
   const [name, setName] = useState("");
