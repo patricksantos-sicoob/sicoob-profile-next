@@ -20,7 +20,7 @@ export default function Home() {
           </Link>
           <Link
             className="bg-[#7eb61d] text-white p-2 rounded-md font-semibold"
-            href="/login/cadastro"
+            href="/cadastro"
           >
             Criar conta
           </Link>

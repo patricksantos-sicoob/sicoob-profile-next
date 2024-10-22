@@ -1,16 +1,17 @@
-interface ButtonLoginProps {
-  buttonText: string;
-  onClick: () => void;
+import React from "react";
+
+interface ButtonLoginProps extends React.ComponentProps<"button"> {
+  buttonText: string
 }
 
-export default function ButtonLogin(props: ButtonLoginProps) {
+export default function ButtonLogin({ buttonText, ...props }: ButtonLoginProps) {
   return (
     <button
       className={`bg-[#7eb61d] p-2 rounded-md text-white capitalize`}
       type="submit"
-      onClick={props.onClick}
+      {...props}
     >
-      {props.buttonText}
+      {buttonText}
     </button>
   );
 }

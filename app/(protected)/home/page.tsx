@@ -4,7 +4,7 @@ import UserCard from "../../../components/UserCard";
 import { useState, useEffect } from "react";
 
 type User = {
-  sub: string;
+  id: string;
   username: string;
   name: string;
   description: string;
@@ -55,7 +55,7 @@ export default function Home() {
     <div className="flex flex-col justify-center items-center bg-white gap-5 pt-8 pb-8">
       {users.map((user) => (
         <UserCard
-          key={user.sub}
+          key={user.id}
           bgColor="bg-[#15b7a5]"
           name={user.name}
           username={user.username}

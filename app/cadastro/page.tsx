@@ -1,11 +1,11 @@
 "use client"
 
 import Input from "@/components/Input";
-import LoginModal from "../../../components/LoginModal";
+import LoginModal from "../../components/LoginModal";
 import ButtonLogin from "@/components/Button";
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
-import Notification from "@/components/Notification";
+import { toast, Toaster } from "react-hot-toast";
 
 export default function Cadastro() {
   const [name, setName] = useState("");
@@ -13,10 +13,16 @@ export default function Cadastro() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [response, setResponse] = useState<Response | null>(null);
+  const [error, setError] = useState<Error | null>(null)
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (password !== confirmPassword) {
+      return;
+    }
 
     const userData = { name, username, email, password };
 
@@ -27,6 +33,8 @@ export default function Cadastro() {
         body: JSON.stringify(userData),
       });
 
+      setResponse(response);
+
       if (!response.ok) {
         throw new Error("Erro ao cadastrar usuário");
       }
@@ -35,9 +43,26 @@ export default function Cadastro() {
       console.log("Usuário cadastrado com sucesso:", data);
     } catch (error) {
       console.error(error);
+      setError(error.message);
     }
 
     router.push('/login');
+  };
+
+  const notify = () => {
+    if (error instanceof Error) {
+      toast.error("Houve um erro no servidor");
+    }
+    if (response && !response.ok) {
+      toast.error("Erro ao cadastrar usuário");
+    }
+    if (response && response.ok) {
+      toast.success("Cadastro realizado com sucesso");
+    }
+
+    if (password !== confirmPassword) {
+      toast.error("As senhas precisam ser iguais");
+    }
   };
 
   return (
@@ -50,7 +75,8 @@ export default function Cadastro() {
         <Input type="password" placeholder="Crie uma senha" value={password} onChange={(e) => setPassword(e.target.value)} />
         <Input type="password" placeholder="Repita a senha" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
 
-        <ButtonLogin buttonText="Fazer Cadastro" />
+        <ButtonLogin buttonText="Fazer Cadastro" onClick={notify}/>
+        <Toaster position="bottom-right"/>
         <p></p>
       </form>
       <div>

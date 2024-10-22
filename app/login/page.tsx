@@ -24,14 +24,18 @@ export default function LoginPage() {
           "Content-type": "application/json",
         },
         body: JSON.stringify({ username, password }),
+      }).catch(() => {
+        throw new Error("Falha ao conectar ao servidor.")
       });
 
-      setResponse(response);
-
       if (!response.ok) {
-        console.error("Login inválido");
-        throw new Error("Login inválido");
+        if (response.status === 401) {
+          throw new Error("Login ou senha incorretos");
+        }
+        throw new Error("Erro ao fazer login");
       }
+
+      setResponse(response);
 
       const data = await response.json();
       console.log("Login realizado com sucesso:", data);
@@ -39,21 +43,12 @@ export default function LoginPage() {
       localStorage.setItem("token", data.access_token);
 
       router.push("/home");
+
+      toast.success("login efetuado com sucesso.");
     } catch (error) {
       console.error(error);
-      setError(error.message);
-    }
-  };
-
-  const notifyServerError = () => {
-    if (error instanceof Error) {
-      toast.error("Houve um erro no servidor");
-    }
-    if (response && !response.ok) {
-      toast.error("Login ou senha incorretos");
-    }
-    if (response) {
-      toast.success("Login realizado com sucesso");
+      setError(error);
+      toast.error(error.message);
     }
   };
 
@@ -73,13 +68,13 @@ export default function LoginPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <ButtonLogin buttonText="Fazer Login" onClick={notifyServerError} />
-        <Toaster />
+        <ButtonLogin buttonText="Fazer Login" />
+        <Toaster position="bottom-right" />
       </form>
       <div>
         <p>
-          Ainda não possui uma conta? <a href="/login/cadastro">Clique aqui</a>{" "}
-          para se cadastrar
+          Ainda não possui uma conta? <a href="/cadastro">Clique aqui</a> para
+          se cadastrar
         </p>
       </div>
     </LoginModal>
