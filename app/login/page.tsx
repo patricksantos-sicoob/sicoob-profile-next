@@ -25,7 +25,7 @@ export default function LoginPage() {
         },
         body: JSON.stringify({ username, password }),
       }).catch(() => {
-        throw new Error("Falha ao conectar ao servidor.")
+        throw new Error("Falha ao conectar ao servidor")
       });
 
       if (!response.ok) {
