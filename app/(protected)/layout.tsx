@@ -10,7 +10,7 @@ export default function HomeLayout({
     <ProtectedRoute>
       <div className="bg-[#00353e] text-white h-20 flex justify-around items-center">
         <p className="font-semibold">Perfil Sicoob</p>
-        <div className="flex flex-row gap-3 items-center justify-center">
+        <div className="flex flex-row gap-3 items-center justify-center text-center">
           <Link className="text-white" href="/home">
             Ver perfis
           </Link>

@@ -20,20 +20,22 @@ export default function Cadastro() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
-      return;
-    }
-
     const userData = { name, username, email, password };
-
+    console.log(password, "  ", confirmPassword)
     try {
       const response = await fetch("http://localhost:2345/users", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(userData),
+      }).catch(() => {
+        throw new Error("Falha ao conectar ao servidor")
       });
 
       setResponse(response);
+      
+      if (password !== confirmPassword) {
+        throw new Error("As senhas precisam ser iguais");
+      }
 
       if (!response.ok) {
         throw new Error("Erro ao cadastrar usuário");
@@ -44,26 +46,13 @@ export default function Cadastro() {
       }
 
       const data = await response.json();
+      toast.success("Cadastro realizado com sucesso");
       console.log("Usuário cadastrado com sucesso:", data);
-    } catch (error) {
+    } catch (err) {
+      const error = err as Error;
       console.error(error);
       setError(error.message);
-    }
-  };
-
-  const notify = () => {
-    if (error instanceof Error) {
-      toast.error("Houve um erro no servidor");
-    }
-    if (response && !response.ok) {
-      toast.error("Erro ao cadastrar usuário");
-    }
-    if (response && response.ok) {
-      toast.success("Cadastro realizado com sucesso");
-    }
-
-    if (password !== confirmPassword) {
-      toast.error("As senhas precisam ser iguais");
+      toast.error(error.message);
     }
   };
 
@@ -102,7 +91,7 @@ export default function Cadastro() {
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
 
-        <ButtonLogin buttonText="Fazer Cadastro" onClick={notify} />
+        <ButtonLogin buttonText="Fazer Cadastro" />
         <Toaster position="bottom-right" />
         <p></p>
       </form>

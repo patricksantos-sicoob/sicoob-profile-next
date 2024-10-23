@@ -7,7 +7,7 @@ interface ButtonLoginProps extends React.ComponentProps<"button"> {
 export default function ButtonLogin({ buttonText, ...props }: ButtonLoginProps) {
   return (
     <button
-      className={`bg-[#7eb61d] p-2 rounded-md text-white capitalize`}
+      className={`bg-[#7eb61d] p-2 rounded-md text-white capitalize w-full`}
       type="submit"
       {...props}
     >

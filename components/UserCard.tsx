@@ -2,16 +2,16 @@ import Image from "next/image";
 
 interface UserCardProps {
   bgColor?: string;
-  name: string;
-  username: string;
-  bio: string;
-  description: string;
-  role: string;
-  team: string;
-  image: string;
-  virtue1: string;
-  virtue2: string;
-  virtue3: string;
+  name: string | undefined;
+  username: string | undefined;
+  bio: string | undefined;
+  description: string | undefined;
+  role: string | undefined;
+  team: string | undefined;
+  image: string | undefined;
+  virtue1: string | undefined;
+  virtue2: string | undefined;
+  virtue3: string | undefined;
 }
 
 export default function UserCard(props: UserCardProps) {

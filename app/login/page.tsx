@@ -45,7 +45,8 @@ export default function LoginPage() {
       router.push("/home");
 
       toast.success("login efetuado com sucesso.");
-    } catch (error) {
+    } catch (err) {
+      const error = err as Error;
       console.error(error);
       setError(error);
       toast.error(error.message);

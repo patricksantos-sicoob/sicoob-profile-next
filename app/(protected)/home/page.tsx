@@ -23,9 +23,15 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+
     const fetchUsers = async () => {
       try {
-        const response = await fetch("http://localhost:2345/users", {});
+        const response = await fetch("http://localhost:2345/users", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         if (!response.ok) {
           throw new Error("Erro ao carregar informações dos usuários");
