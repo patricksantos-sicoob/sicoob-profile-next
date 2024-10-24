@@ -1,11 +1,23 @@
+"use client"
+
 import ProtectedRoute from "@/components/ProtectedRoute";
+import { LogOut } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function HomeLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+
+  const router = useRouter()
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    router.push('/login')
+  }
+
   return (
     <ProtectedRoute>
       <div className="bg-[#00353e] text-white h-20 flex justify-around items-center">
@@ -20,6 +32,7 @@ export default function HomeLayout({
           >
             Minha conta
           </Link>
+          <button onClick={logout}><LogOut width={14} className="text-red-500"/></button>
         </div>
       </div>
       {children}
