@@ -4,6 +4,8 @@ import { useState } from "react";
 import Button from "./Button";
 import Input from "./Input";
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
+import * as Select from "@radix-ui/react-select";
+import { ChevronDown } from "lucide-react";
 
 type UserSettingsProps = {
   onInputChange: (field: string, value: string) => void;
@@ -83,6 +85,16 @@ export default function UserSettings({
           value={image}
           onChange={(e) => handleChange("image", e.target.value)}
         />
+        <Select.Root>
+          <Select.Trigger
+            className="border rounded border-[#003741] p-[4px]"
+            aria-label="Qualidades"
+          >
+            <Select.Icon>
+              <ChevronDown color="grey"/>
+            </Select.Icon>
+          </Select.Trigger>
+        </Select.Root>
         <Input
           placeholder="Qualidade 1"
           type="text"
@@ -104,7 +116,6 @@ export default function UserSettings({
         <Button buttonText="Salvar" onClick={onSave} />
       </form>
       <div>
-        <p>Redefinir e-mail ou senha</p>
         <AlertDialog.Root>
           <AlertDialog.Trigger asChild>
             <button className="text-red-400">Deletar conta</button>

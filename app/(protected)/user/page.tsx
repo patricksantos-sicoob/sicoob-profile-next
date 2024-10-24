@@ -3,8 +3,7 @@
 import UserCard from "@/components/UserCard";
 import UserSettings from "@/components/UserSettings";
 import { useState, useEffect } from "react";
-import { NextResponse, NextRequest } from 'next/server'
-import { authenticate } from 'auth-provider'
+import { useRouter } from "next/navigation";
 import { toast, Toaster } from "react-hot-toast";
 
 type User = {
@@ -27,6 +26,9 @@ export default function UserPage() {
   const [userInfo, setUserInfo] = useState<User | null>();
 
   console.log(userInfo);
+
+  const router = useRouter();
+
   useEffect(() => {
     const token = localStorage.getItem("token");
 
@@ -125,7 +127,9 @@ export default function UserPage() {
         throw new Error("Erro ao deletar perfil");
       }
 
-      NextResponse.redirect(new URL('/login', request.url))
+      localStorage.removeItem("token");
+
+      router.push("/login");
     } catch (err) {
       const error = err as Error;
       setError(error.message);
